@@ -1,23 +1,43 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import Form from './components/Form';
+import Progress from './components/Progress';
+import QR from './components/QR';
 import './App.css';
 
+
 function App() {
+  const [dataForm,setDataForm] = useState({
+    code:'',
+    name:'',
+    surname:'',
+    email:''
+  });
+  const [generated,setGenerated] = useState(false);
+  const [loading,setLoading] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {
+        loading ? (
+          <Progress/>
+        )
+        :
+          generated ?
+          (
+            <QR
+              dataForm={dataForm}
+            />
+          )
+          :
+          (
+            <Form
+              dataForm={dataForm}
+              setDataForm={setDataForm}
+              setGenerated={setGenerated}
+              setLoading={setLoading}
+            />
+          )
+      }
     </div>
   );
 }
