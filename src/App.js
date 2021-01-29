@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Form from './components/Form';
 import Progress from './components/Progress';
-import QR from './components/QR';
 import './App.css';
+import QRView from './components/QR';
 
 
 function App() {
@@ -10,8 +10,10 @@ function App() {
     code:'',
     name:'',
     surname:'',
-    email:''
+    email:'',
+    codebook:'',
   });
+  const [datereturn,setDateReturn] = useState(new Date());
   const [generated,setGenerated] = useState(false);
   const [loading,setLoading] = useState(false);
 
@@ -24,17 +26,20 @@ function App() {
         :
           generated ?
           (
-            <QR
+            <QRView
               dataForm={dataForm}
+              datereturn={datereturn}
             />
           )
           :
           (
             <Form
               dataForm={dataForm}
+              datereturn={datereturn}
               setDataForm={setDataForm}
               setGenerated={setGenerated}
               setLoading={setLoading}
+              setDateReturn={setDateReturn}
             />
           )
       }

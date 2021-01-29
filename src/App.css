@@ -7,8 +7,8 @@ body{
 .app{
   background-color: white;
   border: 1px solid black;
-  width: 400px;
-  margin-top: 8rem;
+  width: 500px;
+  margin-top: 3rem;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 2px 5px 5px rgba(0, 0, 0, .8);
@@ -23,7 +23,7 @@ body{
   border-radius: 5px;
   padding: .4rem;
 }
-.form button{
+.form .btn{
   cursor: pointer;
   margin-top: 1rem;
   border-radius: 5px;
@@ -34,7 +34,7 @@ body{
   height: 40px;
   transition: .5s all;
 }
-.form button:hover{
+.form .btn:hover{
   color: white;
   background-color: #3a3a3a;
 }
@@ -64,4 +64,21 @@ body{
 }
 .form-email .button-email{
   text-align: center;
+}
+.react-datepicker{
+  display: flex !important;
+}
+@media only screen and (max-width:600px){
+  .app{
+    width:400px;
+  }
+}
+
+@media only screen and (max-width:400px){
+  .app{
+    width:100%;
+  }
+  .react-datepicker{
+    width: auto;
+  }
 }

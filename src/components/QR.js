@@ -2,19 +2,22 @@ import React, { useState } from 'react'
 import QRCode from 'qrcode.react';
 import Alert from './Alert';
 import emailjs from 'emailjs-com';
+import {formatDate} from '../helps/formatDate'
 
-function QR({dataForm}) {
+function QRView({dataForm,datereturn}) {
     const [error,setError] = useState(false);
     const [sended,setSended] = useState(false);
 
-    const {name,email} = dataForm;
+    const {name,surname,code,email,codebook} = dataForm;
+
+    const stringQR = `Código: ${code} \nNombre: ${name} \nApellido: ${surname} \nEmail: ${email} \nCodigo de Libro: ${codebook} \nFecha de Salida: ${formatDate(new Date())} \nFecha de Retorno: ${formatDate(datereturn)}`;
 
     const sendToEmail = () => {
         if(email.trim() === '' && name.trim() === '') return;
         var templateParams = {
             to_name: name.toUpperCase(),
             to_email: email,
-            message: JSON.stringify(dataForm),
+            message: stringQR,
             from_name: 'Aplication QR',
         };
         emailjs.send('service_kydej4w','template_s34w40i',templateParams,'user_V4E7g6G2mmK9SpPbmD8x7')
@@ -37,7 +40,10 @@ function QR({dataForm}) {
             )}
             <small><i className="fas fa-check-circle"></i></small>
             <h2>!Código creado¡</h2>
-            <QRCode value={JSON.stringify(dataForm)} className="qrcode"/>
+            <QRCode
+                value={stringQR}
+                className="qrcode"
+            />
             <br></br>
             <button onClick={sendToEmail} className="btn btn-success mt-4 mb-4"><i className="fas fa-envelope"></i> Enviar por Email?</button>
             <a href="/" style={{display:"block"}}>← Regresar</a>
@@ -45,4 +51,4 @@ function QR({dataForm}) {
     )
 }
 
-export default QR
+export default QRView
